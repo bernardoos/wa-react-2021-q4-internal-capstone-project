@@ -3,9 +3,9 @@ import Homepage from "../pages/Homepage";
 
 function Content() {
   return (
-    <body>
+    <div>
       <Homepage></Homepage>
-    </body>
+    </div>
   );
 }
 
