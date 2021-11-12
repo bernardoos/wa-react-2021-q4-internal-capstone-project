@@ -1,8 +1,8 @@
 import "./App.css";
 import { useFeaturedBanners } from "./utils/hooks/useFeaturedBanners";
-import Header from "./layouts/Header";
-import Content from "./layouts/Content";
-import Footer from "./layouts/Footer";
+import Header from "./layout/Header/Header";
+import Content from "./layout/Content/Content";
+import Footer from "./layout/Footer/Footer";
 
 function App() {
   const { data, isLoading } = useFeaturedBanners();
