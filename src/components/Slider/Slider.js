@@ -1,9 +1,10 @@
-import SlickSlider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 import BannersSrc from "mocks/en-us/featured-banners.json";
-import styled from "styled-components";
 import React from "react";
+import SlickSlider from "react-slick";
+import styled from "styled-components";
 
 const SliderImg = styled.img`
   height: 20vh;
