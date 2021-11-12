@@ -6,7 +6,7 @@ const ProductCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: papayawhip;
+  background-color: gainsboro;
   border: black thin solid;
   margin: 4rem;
   border-radius: 10px;
