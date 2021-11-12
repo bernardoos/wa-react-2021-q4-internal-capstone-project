@@ -1,7 +1,6 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import BannersSrc from "mocks/en-us/featured-banners.json";
 import React from "react";
 import SlickSlider from "react-slick";
 import styled from "styled-components";
@@ -12,9 +11,7 @@ const SliderImg = styled.img`
   object-position: center;
 `;
 
-function Slider() {
-  const { results: bannersInfo } = BannersSrc;
-
+function Slider({ bannersInfo }) {
   const settings = {
     arrows: false,
     autoplay: true,

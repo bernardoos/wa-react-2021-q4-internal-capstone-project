@@ -1,7 +1,6 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import CategoriesSrc from "mocks/en-us/product-categories";
 import React from "react";
 import SlickSlider from "react-slick";
 import styled from "styled-components";
@@ -14,15 +13,15 @@ const CarouselImg = styled.img`
 
 const CarouselContainer = styled.div`
   height: 40vh;
-  padding-left: 30%;
-  padding-right: 30%;
+  margin-left: 30%;
+  margin-right: 30%;
 `;
 
-function Carousel() {
-  const { results: categoriesInfo } = CategoriesSrc;
+const CustomArrow = styled.div`
+  background-color: gray;
+`;
 
-  console.log("ca", categoriesInfo);
-
+function Carousel({ categoriesInfo }) {
   const settings = {
     arrows: true,
     dots: false,
@@ -30,6 +29,8 @@ function Carousel() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    nextArrow: <CustomArrow />,
+    prevArrow: <CustomArrow />,
   };
 
   return (
@@ -38,12 +39,15 @@ function Carousel() {
       <h2>Categories</h2>
       <CarouselContainer>
         <SlickSlider {...settings}>
-          {categoriesInfo.map((category) => (
-            <CarouselImg
-              src={category.data.main_image.url}
-              alt={category.data.main_image.alt}
-            />
-          ))}
+          {categoriesInfo.map(
+            ({
+              data: {
+                main_image: { url, alt },
+              },
+            }) => (
+              <CarouselImg src={url} alt={alt} />
+            )
+          )}
         </SlickSlider>
       </CarouselContainer>
     </>
