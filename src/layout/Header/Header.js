@@ -29,7 +29,7 @@ const CartLogo = styled.img`
 
 const SearchLogo = styled.img`
   height: 20px;
-  margin-right: 20px;
+  margin-right: 10px;
 `;
 
 const SearchInput = styled.input`
