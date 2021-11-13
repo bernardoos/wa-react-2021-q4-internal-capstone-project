@@ -23,7 +23,7 @@ function Homepage() {
       <Slider bannersInfo={bannersInfo} />
       <ContentContainer>
         <Carousel categoriesInfo={categoriesInfo} />
-        <Grid productsInfo={productsInfo} />
+        <Grid productsInfo={productsInfo} categoriesInfo={categoriesInfo} />
       </ContentContainer>
     </>
   );

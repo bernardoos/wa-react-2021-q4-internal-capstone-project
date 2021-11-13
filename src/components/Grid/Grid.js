@@ -33,7 +33,10 @@ const Col = styled.div`
   flex-basis: 33%;
 `;
 
-function Grid({ productsInfo }) {
+function Grid({ productsInfo, categoriesInfo }) {
+  const getCategoryName = (cateogryId) =>
+    categoriesInfo.find((category) => category.id === cateogryId).data.name;
+
   return (
     <>
       <br />
@@ -44,7 +47,7 @@ function Grid({ productsInfo }) {
             data: {
               name,
               price,
-              category: { slug },
+              category: { id: categoryId },
               mainimage: { url, alt },
             },
           }) => (
@@ -53,7 +56,7 @@ function Grid({ productsInfo }) {
                 <ProductImg src={url} alt={alt} />
                 <ProductDesc>
                   <h3>{name}</h3>
-                  <p>Category: {slug}</p>
+                  <p>Category: {getCategoryName(categoryId)}</p>
                   <p>Price: ${price}</p>
                 </ProductDesc>
               </ProductCard>
