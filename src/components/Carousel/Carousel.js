@@ -13,8 +13,10 @@ const CarouselImg = styled.img`
 
 const CarouselContainer = styled.div`
   height: 40vh;
-  margin-left: 30%;
-  margin-right: 30%;
+  @media (min-width: 770px) {
+    margin-left: 30%;
+    margin-right: 30%;
+  }
 `;
 
 const CustomArrow = styled.div`
@@ -41,11 +43,12 @@ function Carousel({ categoriesInfo }) {
         <SlickSlider {...settings}>
           {categoriesInfo.map(
             ({
+              id,
               data: {
                 main_image: { url, alt },
               },
             }) => (
-              <CarouselImg src={url} alt={alt} />
+              <CarouselImg src={url} alt={alt} key={id} />
             )
           )}
         </SlickSlider>

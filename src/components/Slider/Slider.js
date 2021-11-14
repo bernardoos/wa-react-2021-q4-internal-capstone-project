@@ -25,12 +25,16 @@ function Slider({ bannersInfo }) {
 
   return (
     <SlickSlider {...settings}>
-      {bannersInfo.map((banner) => (
-        <SliderImg
-          src={banner.data.main_image.url}
-          alt={banner.data.main_image.alt}
-        />
-      ))}
+      {bannersInfo.map(
+        ({
+          id,
+          data: {
+            main_image: { alt, url },
+          },
+        }) => (
+          <SliderImg src={url} alt={alt} key={id} />
+        )
+      )}
     </SlickSlider>
   );
 }

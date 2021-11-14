@@ -1,12 +1,12 @@
 import "./App.css";
-import { useFeaturedBanners } from "./utils/hooks/useFeaturedBanners";
 import Header from "./layout/Header/Header";
 import Content from "./layout/Content/Content";
 import Footer from "./layout/Footer/Footer";
 
 function App() {
-  const { data, isLoading } = useFeaturedBanners();
-  console.log(data, isLoading);
+  // Using mock files for now
+  // const { data, isLoading } = useFeaturedBanners();
+  // console.log(data, isLoading);
 
   return (
     <div className="App">

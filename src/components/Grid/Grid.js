@@ -8,9 +8,12 @@ const ProductCard = styled.div`
   align-items: center;
   background-color: gainsboro;
   border: black thin solid;
-  margin: 4rem;
   border-radius: 10px;
-  max-width: 80%;
+  margin-bottom: 2rem;
+  @media (min-width: 770px) {
+    max-width: 80%;
+    margin: 4rem;
+  }
 `;
 
 const ProductImg = styled.img`
@@ -30,7 +33,10 @@ const Row = styled.div`
 `;
 
 const Col = styled.div`
-  flex-basis: 33%;
+  flex-basis: 100%;
+  @media (min-width: 770px) {
+    flex-basis: 33%;
+  }
 `;
 
 function Grid({ productsInfo, categoriesInfo }) {
@@ -44,6 +50,7 @@ function Grid({ productsInfo, categoriesInfo }) {
       <Row>
         {productsInfo.map(
           ({
+            id,
             data: {
               name,
               price,
@@ -51,7 +58,7 @@ function Grid({ productsInfo, categoriesInfo }) {
               mainimage: { url, alt },
             },
           }) => (
-            <Col>
+            <Col key={id}>
               <ProductCard>
                 <ProductImg src={url} alt={alt} />
                 <ProductDesc>
