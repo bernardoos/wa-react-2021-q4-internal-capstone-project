@@ -5,10 +5,18 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "components/Sidebar/Sidebar";
 import styled from "styled-components";
 import "./ProductList.css";
+import Paginator from "components/Paginator/Paginator";
 
 const ContentContainer = styled.div`
   min-height: calc(100vh - 108px);
   text-align: left;
+`;
+
+const PaginatorContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 function ProductList() {
@@ -48,6 +56,9 @@ function ProductList() {
             productsInfo={selectedProducts}
             categoriesInfo={categoriesInfo}
           />
+          <PaginatorContainer>
+            <Paginator pages={10} />
+          </PaginatorContainer>
         </div>
       </div>
     </ContentContainer>
