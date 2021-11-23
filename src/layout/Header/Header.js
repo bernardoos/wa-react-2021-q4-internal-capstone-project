@@ -18,6 +18,12 @@ const HeaderSection = styled.header`
   align-items: center;
 `;
 
+const LogoSection = styled.header`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+`;
+
 const SiteLogo = styled.img`
   height: 50px;
   margin-right: 10px;
@@ -37,13 +43,17 @@ const SearchInput = styled.input`
   margin-right: 20px;
 `;
 
-function Header() {
+function Header({ setPage }) {
+  const navigateToHome = () => {
+    setPage("home");
+  };
+
   return (
     <HeaderContainer>
-      <HeaderSection>
+      <LogoSection onClick={navigateToHome}>
         <SiteLogo src={LogoSrc} alt="Logo" />
         Globox
-      </HeaderSection>
+      </LogoSection>
 
       <HeaderSection>
         <SearchLogo src={SearchSrc} alt="Search" />

@@ -46,30 +46,30 @@ function Grid({ productsInfo, categoriesInfo }) {
   return (
     <>
       <br />
-      <h2>Featured Products</h2>
       <Row>
-        {productsInfo.map(
-          ({
-            id,
-            data: {
-              name,
-              price,
-              category: { id: categoryId },
-              mainimage: { url, alt },
-            },
-          }) => (
-            <Col key={id}>
-              <ProductCard>
-                <ProductImg src={url} alt={alt} />
-                <ProductDesc>
-                  <h3>{name}</h3>
-                  <p>Category: {getCategoryName(categoryId)}</p>
-                  <p>Price: ${price}</p>
-                </ProductDesc>
-              </ProductCard>
-            </Col>
-          )
-        )}
+        {productsInfo.length > 0 &&
+          productsInfo.map(
+            ({
+              id,
+              data: {
+                name,
+                price,
+                category: { id: categoryId },
+                mainimage: { url, alt },
+              },
+            }) => (
+              <Col key={id}>
+                <ProductCard>
+                  <ProductImg src={url} alt={alt} />
+                  <ProductDesc>
+                    <h3>{name}</h3>
+                    <p>Category: {getCategoryName(categoryId)}</p>
+                    <p>Price: ${price}</p>
+                  </ProductDesc>
+                </ProductCard>
+              </Col>
+            )
+          )}
       </Row>
     </>
   );
