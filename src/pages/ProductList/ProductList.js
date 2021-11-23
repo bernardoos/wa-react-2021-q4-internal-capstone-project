@@ -1,6 +1,6 @@
 import CategoriesSrc from "mocks/en-us/product-categories";
 import Grid from "components/Grid/Grid";
-import ProductsSrc from "mocks/en-us/featured-products";
+import ProductsSrc from "mocks/en-us/products";
 import React, { useEffect, useState } from "react";
 import Sidebar from "components/Sidebar/Sidebar";
 import styled from "styled-components";
