@@ -13,18 +13,34 @@ const ContentContainer = styled.div`
   text-align: left;
 `;
 
-function Homepage() {
+const ViewButton = styled.button`
+  background-color: black;
+  color: white;
+  font-size: larger;
+  padding: 15px;
+  margin-bottom: 5rem;
+  border-radius: 15px;
+`;
+
+function Homepage({ setPage }) {
   const { results: bannersInfo } = BannersSrc;
   const { results: categoriesInfo } = CategoriesSrc;
   const { results: productsInfo } = FeaturedProductsSrc;
+
+  const navigateToProducts = () => {
+    console.log("click", setPage);
+    setPage("products");
+  };
 
   return (
     <>
       <Slider bannersInfo={bannersInfo} />
       <ContentContainer>
         <Carousel categoriesInfo={categoriesInfo} />
+        <h2>Featured Products</h2>
         <Grid productsInfo={productsInfo} categoriesInfo={categoriesInfo} />
       </ContentContainer>
+      <ViewButton onClick={navigateToProducts}>View All Products</ViewButton>
     </>
   );
 }
