@@ -1,6 +1,6 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import { useFeaturedBanners } from "utils/hooks/useFeaturedBanners";
 import React from "react";
 import SlickSlider from "react-slick";
 import styled from "styled-components";
@@ -11,7 +11,7 @@ const SliderImg = styled.img`
   object-position: center;
 `;
 
-function Slider({ bannersInfo }) {
+function Slider() {
   const settings = {
     arrows: false,
     autoplay: true,
@@ -23,19 +23,28 @@ function Slider({ bannersInfo }) {
     slidesToScroll: 1,
   };
 
+  const { data: bannersInfo = [], isLoading, error } = useFeaturedBanners();
+
   return (
-    <SlickSlider {...settings}>
-      {bannersInfo.map(
-        ({
-          id,
-          data: {
-            main_image: { alt, url },
-          },
-        }) => (
-          <SliderImg src={url} alt={alt} key={id} />
-        )
+    <>
+      {isLoading && <h2>Loading banner</h2>}
+      {error ? (
+        <h2>Woops! Something went wrong...</h2>
+      ) : (
+        <SlickSlider {...settings}>
+          {bannersInfo.results?.map(
+            ({
+              id,
+              data: {
+                main_image: { alt, url },
+              },
+            }) => (
+              <SliderImg src={url} alt={alt} key={id} />
+            )
+          )}
+        </SlickSlider>
       )}
-    </SlickSlider>
+    </>
   );
 }
 

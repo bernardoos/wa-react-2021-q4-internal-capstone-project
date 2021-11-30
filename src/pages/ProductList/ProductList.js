@@ -1,16 +1,13 @@
-import CategoriesSrc from "mocks/en-us/product-categories";
+import { useProductCategories } from "utils/hooks/useProductCategories";
 import Grid from "components/Grid/Grid";
-import ProductsSrc from "mocks/en-us/products";
 import React, { useEffect, useState } from "react";
 import Sidebar from "components/Sidebar/Sidebar";
 import styled from "styled-components";
 import "./ProductList.css";
 import Paginator from "components/Paginator/Paginator";
-
-const ContentContainer = styled.div`
-  min-height: calc(100vh - 108px);
-  text-align: left;
-`;
+import { useProducts } from "utils/hooks/useProducts";
+import { useLocation } from "react-router-dom";
+import { ContentContainer } from "StyledComponents";
 
 const PaginatorContainer = styled.div`
   width: 100%;
@@ -20,24 +17,42 @@ const PaginatorContainer = styled.div`
 `;
 
 function ProductList() {
-  const { results: categoriesInfo } = CategoriesSrc;
-  const { results: productsInfo } = ProductsSrc;
+  const { data: categoriesInfo = [] } = useProductCategories();
+  const { data: productsInfo = [] } = useProducts();
 
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [selectedProductsIds, setSelectedProductsIds] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const categoryId = searchParams.get("category");
+
+  useEffect(() => {
+    setSelectedProductsIds([categoryId]);
+  }, [categoryId]);
 
   useEffect(() => {
     let auxProducts = [];
 
-    selectedProductsIds.forEach((categoryId) => {
-      const categoryProducts = productsInfo.filter(
-        (products) => products.data.category.id === categoryId
-      );
+    if (selectedProductsIds.length === 0) {
+      auxProducts = productsInfo?.results;
+    } else {
+      selectedProductsIds.forEach((categoryId) => {
+        const categoryProducts =
+          productsInfo.results?.filter(
+            (products) => products.data.category.id === categoryId
+          ) ?? [];
 
-      auxProducts = [...auxProducts, ...categoryProducts];
-    });
+        auxProducts = [...auxProducts, ...categoryProducts];
+      });
+    }
+
+    const pages =
+      auxProducts?.length > 12 ? (auxProducts?.length || 1) / 12 : 1;
 
     setSelectedProducts(auxProducts);
+    setTotalPages(pages);
   }, [selectedProductsIds, productsInfo]);
 
   return (
@@ -52,12 +67,9 @@ function ProductList() {
           <div className="container-fluid">
             <h1>This is the Product List Page</h1>
           </div>
-          <Grid
-            productsInfo={selectedProducts}
-            categoriesInfo={categoriesInfo}
-          />
+          <Grid productsInfo={selectedProducts} />
           <PaginatorContainer>
-            <Paginator pages={10} />
+            <Paginator pages={totalPages} />
           </PaginatorContainer>
         </div>
       </div>
