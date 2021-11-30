@@ -18,7 +18,7 @@ function Paginator({ pages }) {
     <>
       <MdArrowBackIos style={{ marginRight: 5 }} />
       {Array.from(Array(pages).keys()).map((page) => (
-        <PageButton>{page + 1}</PageButton>
+        <PageButton key={page}>{page + 1}</PageButton>
       ))}
       <MdArrowForwardIos style={{ marginLeft: 5 }} />
     </>

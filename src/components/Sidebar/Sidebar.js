@@ -1,4 +1,5 @@
 import React from "react";
+import { MdFilterAlt } from "react-icons/md";
 
 function Sidebar({
   categoriesInfo,
@@ -19,12 +20,16 @@ function Sidebar({
     setSelectedProductsIds(newIds);
   };
 
+  const clearFilters = () => {
+    setSelectedProductsIds([]);
+  };
+
   console.log("ids", selectedProductsIds);
 
   return (
     <div id="sidebar-wrapper">
       <ul className="sidebar-nav">
-        {categoriesInfo.map(({ id, data: { name } }) => (
+        {categoriesInfo.results?.map(({ id, data: { name } }) => (
           <li className="sidebar-brand" key={id} onClick={selectCategory}>
             <span
               className={
@@ -36,6 +41,16 @@ function Sidebar({
             </span>
           </li>
         ))}
+        {selectedProductsIds.length > 0 && (
+          <li className="sidebar-brand" onClick={clearFilters}>
+            <span
+              style={{ display: "flex", alignItems: "center", marginLeft: 15 }}
+            >
+              <MdFilterAlt />
+              Clear filters
+            </span>
+          </li>
+        )}
       </ul>
     </div>
   );
