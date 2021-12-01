@@ -13,8 +13,6 @@ function ProductDetail() {
   const [images, setImages] = useState([]);
   const [productInfo, setProductInfo] = useState({});
 
-  console.log("data", data);
-
   useEffect(() => {
     if (data.results) {
       const productInfo = data?.results[0];

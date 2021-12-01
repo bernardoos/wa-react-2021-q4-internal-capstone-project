@@ -17,23 +17,29 @@ const PaginatorContainer = styled.div`
 `;
 
 function ProductList() {
+  const [page, setPage] = useState(1);
   const { data: categoriesInfo = [] } = useProductCategories();
-  const { data: productsInfo = [] } = useProducts();
+  const { data: productsInfo = [] } = useProducts(page);
 
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [selectedProductsIds, setSelectedProductsIds] = useState([]);
-  const [totalPages, setTotalPages] = useState(1);
 
   const { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const categoryId = searchParams.get("category");
 
   useEffect(() => {
-    setSelectedProductsIds([categoryId]);
+    if (categoryId) {
+      setSelectedProductsIds([categoryId]);
+    } else {
+      setSelectedProductsIds([]);
+    }
   }, [categoryId]);
 
   useEffect(() => {
     let auxProducts = [];
+
+    console.log("ahora", productsInfo);
 
     if (selectedProductsIds.length === 0) {
       auxProducts = productsInfo?.results;
@@ -48,12 +54,8 @@ function ProductList() {
       });
     }
 
-    const pages =
-      auxProducts?.length > 12 ? (auxProducts?.length || 1) / 12 : 1;
-
     setSelectedProducts(auxProducts);
-    setTotalPages(pages);
-  }, [selectedProductsIds, productsInfo]);
+  }, [selectedProductsIds, productsInfo, page]);
 
   return (
     <ContentContainer>
@@ -69,7 +71,7 @@ function ProductList() {
           </div>
           <Grid productsInfo={selectedProducts} />
           <PaginatorContainer>
-            <Paginator pages={totalPages} />
+            <Paginator pages={productsInfo.total_pages} setPage={setPage} />
           </PaginatorContainer>
         </div>
       </div>

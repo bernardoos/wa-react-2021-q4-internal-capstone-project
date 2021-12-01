@@ -20,12 +20,6 @@ export function useProductDetail(productId) {
       try {
         setProductDetail({ data: {}, isLoading: true });
 
-        console.log(
-          `${API_BASE_URL}/documents/search?ref=${apiRef}&q=${encodeURIComponent(
-            `[[at(document.id, "${productId}")]]`
-          )}`
-        );
-
         const response = await fetch(
           `${API_BASE_URL}/documents/search?ref=${apiRef}&q=${encodeURIComponent(
             `[[at(document.id, "${productId}")]]`

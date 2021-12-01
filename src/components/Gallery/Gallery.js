@@ -8,8 +8,6 @@ import "swiper/swiper.min.css";
 import "./Gallery.css";
 
 export default function Gallery({ images }) {
-  console.log("render", images);
-
   return (
     <>
       <Swiper

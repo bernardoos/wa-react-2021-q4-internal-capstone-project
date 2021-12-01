@@ -24,8 +24,6 @@ function Sidebar({
     setSelectedProductsIds([]);
   };
 
-  console.log("ids", selectedProductsIds);
-
   return (
     <div id="sidebar-wrapper">
       <ul className="sidebar-nav">

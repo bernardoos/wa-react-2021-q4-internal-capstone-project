@@ -45,3 +45,8 @@ export const LabelDesc = styled.p`
   font-size: large;
   text-align: left;
 `;
+
+export const SectionContainer = styled.div`
+  margin: 50px;
+  text-align: center;
+`;
