@@ -49,8 +49,6 @@ const ProductCardButton = styled.button`
 function Grid({ productsInfo, isLoading, error }) {
   const { data: categoriesInfo = [] } = useProductCategories();
 
-  console.log("prod", productsInfo);
-
   const getCategoryName = (cateogryId) =>
     categoriesInfo.results?.find((category) => category.id === cateogryId).data
       .name;

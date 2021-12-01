@@ -6,14 +6,9 @@ import {
   LabelInfo,
   Label,
   LabelDesc,
+  SectionContainer,
 } from "StyledComponents";
-import styled from "styled-components";
 import { capitalize } from "utils/utils";
-
-const SectionContainer = styled.div`
-  margin: 50px;
-  text-align: center;
-`;
 
 function ProductInfo({ productData, productTags }) {
   return (

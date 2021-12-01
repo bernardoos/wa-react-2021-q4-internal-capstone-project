@@ -11,12 +11,9 @@ import {
   Switch,
 } from "react-router-dom";
 import ProductDetail from "pages/ProductDetail/ProductDetail";
+import SearchResults from "pages/SearchResults/SearchResults";
 
 function App() {
-  // Using mock files for now
-  // const { data, isLoading } = useFeaturedBanners();
-  // console.log(data, isLoading);
-
   return (
     <div className="App">
       <Router>
@@ -34,6 +31,9 @@ function App() {
           </Route>
           <Route exact path="/products">
             <ProductList />
+          </Route>
+          <Route path="/search">
+            <SearchResults />
           </Route>
         </Switch>
       </Router>
