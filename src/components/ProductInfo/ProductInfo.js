@@ -22,7 +22,7 @@ function ProductInfo({ productData, productTags }) {
         </Col>
         <Col>
           <Label>
-            <LabelTitle>Precio:</LabelTitle>
+            <LabelTitle>Price:</LabelTitle>
             <LabelInfo>${productData?.price}.00</LabelInfo>
           </Label>
           <Label>
