@@ -13,15 +13,52 @@ const PageButton = styled.button`
   font-weight: bold;
 `;
 
-function Paginator({ pages }) {
+const PaginatorContainer = styled.div`
+  margin-bottom: 30px;
+`;
+
+function Paginator({ pages, setPage }) {
+  const handleClickPage = (event) => {
+    const page = event.target.innerHTML;
+    console.log("pageee", page);
+
+    setPage(page);
+  };
+
+  const handleClickNext = () => {
+    setPage((currentPage) => {
+      if (currentPage !== pages) {
+        return parseInt(currentPage) + 1;
+      }
+      return currentPage;
+    });
+  };
+
+  const handleClickPrevious = () => {
+    setPage((currentPage) => {
+      if (currentPage > 1) {
+        return parseInt(currentPage) - 1;
+      }
+      return currentPage;
+    });
+  };
+
   return (
-    <>
-      <MdArrowBackIos style={{ marginRight: 5 }} />
+    <PaginatorContainer>
+      <MdArrowBackIos
+        style={{ marginRight: 5, cursor: "pointer" }}
+        onClick={handleClickPrevious}
+      />
       {Array.from(Array(pages).keys()).map((page) => (
-        <PageButton>{page + 1}</PageButton>
+        <PageButton key={page} onClick={handleClickPage}>
+          {page + 1}
+        </PageButton>
       ))}
-      <MdArrowForwardIos style={{ marginLeft: 5 }} />
-    </>
+      <MdArrowForwardIos
+        style={{ marginLeft: 5, cursor: "pointer" }}
+        onClick={handleClickNext}
+      />
+    </PaginatorContainer>
   );
 }
 

@@ -1,16 +1,13 @@
-import CategoriesSrc from "mocks/en-us/product-categories";
+import { useProductCategories } from "utils/hooks/useProductCategories";
 import Grid from "components/Grid/Grid";
-import ProductsSrc from "mocks/en-us/products";
 import React, { useEffect, useState } from "react";
 import Sidebar from "components/Sidebar/Sidebar";
 import styled from "styled-components";
 import "./ProductList.css";
 import Paginator from "components/Paginator/Paginator";
-
-const ContentContainer = styled.div`
-  min-height: calc(100vh - 108px);
-  text-align: left;
-`;
+import { useProducts } from "utils/hooks/useProducts";
+import { useLocation } from "react-router-dom";
+import { ContentContainer } from "StyledComponents";
 
 const PaginatorContainer = styled.div`
   width: 100%;
@@ -20,25 +17,45 @@ const PaginatorContainer = styled.div`
 `;
 
 function ProductList() {
-  const { results: categoriesInfo } = CategoriesSrc;
-  const { results: productsInfo } = ProductsSrc;
+  const [page, setPage] = useState(1);
+  const { data: categoriesInfo = [] } = useProductCategories();
+  const { data: productsInfo = [] } = useProducts(page);
 
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [selectedProductsIds, setSelectedProductsIds] = useState([]);
 
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const categoryId = searchParams.get("category");
+
+  useEffect(() => {
+    if (categoryId) {
+      setSelectedProductsIds([categoryId]);
+    } else {
+      setSelectedProductsIds([]);
+    }
+  }, [categoryId]);
+
   useEffect(() => {
     let auxProducts = [];
 
-    selectedProductsIds.forEach((categoryId) => {
-      const categoryProducts = productsInfo.filter(
-        (products) => products.data.category.id === categoryId
-      );
+    console.log("ahora", productsInfo);
 
-      auxProducts = [...auxProducts, ...categoryProducts];
-    });
+    if (selectedProductsIds.length === 0) {
+      auxProducts = productsInfo?.results;
+    } else {
+      selectedProductsIds.forEach((categoryId) => {
+        const categoryProducts =
+          productsInfo.results?.filter(
+            (products) => products.data.category.id === categoryId
+          ) ?? [];
+
+        auxProducts = [...auxProducts, ...categoryProducts];
+      });
+    }
 
     setSelectedProducts(auxProducts);
-  }, [selectedProductsIds, productsInfo]);
+  }, [selectedProductsIds, productsInfo, page]);
 
   return (
     <ContentContainer>
@@ -52,12 +69,9 @@ function ProductList() {
           <div className="container-fluid">
             <h1>This is the Product List Page</h1>
           </div>
-          <Grid
-            productsInfo={selectedProducts}
-            categoriesInfo={categoriesInfo}
-          />
+          <Grid productsInfo={selectedProducts} />
           <PaginatorContainer>
-            <Paginator pages={10} />
+            <Paginator pages={productsInfo.total_pages} setPage={setPage} />
           </PaginatorContainer>
         </div>
       </div>

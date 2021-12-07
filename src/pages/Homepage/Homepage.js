@@ -1,17 +1,11 @@
-import BannersSrc from "mocks/en-us/featured-banners.json";
 import Carousel from "components/Carousel/Carousel";
-import CategoriesSrc from "mocks/en-us/product-categories";
-import FeaturedProductsSrc from "mocks/en-us/featured-products";
 import Grid from "components/Grid/Grid";
 import React from "react";
 import Slider from "components/Slider/Slider";
 import styled from "styled-components";
-
-const ContentContainer = styled.div`
-  min-height: calc(100vh - 400px);
-  padding: 50px;
-  text-align: left;
-`;
+import { Link } from "react-router-dom";
+import { useFeaturedProducts } from "utils/hooks/useFeaturedProducts";
+import { ContentContainer } from "StyledComponents";
 
 const ViewButton = styled.button`
   background-color: black;
@@ -20,27 +14,27 @@ const ViewButton = styled.button`
   padding: 15px;
   margin-bottom: 5rem;
   border-radius: 15px;
+  cursor: pointer;
 `;
 
-function Homepage({ setPage }) {
-  const { results: bannersInfo } = BannersSrc;
-  const { results: categoriesInfo } = CategoriesSrc;
-  const { results: productsInfo } = FeaturedProductsSrc;
-
-  const navigateToProducts = () => {
-    console.log("click", setPage);
-    setPage("products");
-  };
+function Homepage() {
+  const { data: productsInfo = [], isLoading, error } = useFeaturedProducts();
 
   return (
     <>
-      <Slider bannersInfo={bannersInfo} />
+      <Slider />
       <ContentContainer>
-        <Carousel categoriesInfo={categoriesInfo} />
+        <Carousel />
         <h2>Featured Products</h2>
-        <Grid productsInfo={productsInfo} categoriesInfo={categoriesInfo} />
+        <Grid
+          productsInfo={productsInfo.results}
+          isLoading={isLoading}
+          error={error}
+        />
       </ContentContainer>
-      <ViewButton onClick={navigateToProducts}>View All Products</ViewButton>
+      <Link to="/products">
+        <ViewButton>View All Products</ViewButton>
+      </Link>
     </>
   );
 }

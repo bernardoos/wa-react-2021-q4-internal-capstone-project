@@ -1,5 +1,9 @@
 import React from "react";
 import styled from "styled-components";
+import { useProductCategories } from "utils/hooks/useProductCategories";
+import { MdOutlineAddShoppingCart, MdOutlineMore } from "react-icons/md";
+import { Link } from "react-router-dom";
+import { Row, Col } from "StyledComponents";
 
 const ProductCard = styled.div`
   display: flex;
@@ -25,29 +29,39 @@ const ProductDesc = styled.div`
   padding: 10px;
 `;
 
-const Row = styled.div`
+const ProductCardFooter = styled.div`
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
 `;
 
-const Col = styled.div`
-  flex-basis: 100%;
-  @media (min-width: 770px) {
-    flex-basis: 33%;
-  }
+const ProductCardButton = styled.button`
+  padding: 10px;
+  color: white;
+  background-color: black;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 15px;
+  font-size: medium;
+  display: flex;
+  align-items: center;
 `;
 
-function Grid({ productsInfo, categoriesInfo }) {
+function Grid({ productsInfo, isLoading, error }) {
+  const { data: categoriesInfo = [] } = useProductCategories();
+
   const getCategoryName = (cateogryId) =>
-    categoriesInfo.find((category) => category.id === cateogryId).data.name;
+    categoriesInfo.results?.find((category) => category.id === cateogryId).data
+      .name;
 
   return (
     <>
       <br />
       <Row>
-        {productsInfo.length > 0 &&
-          productsInfo.map(
+        {isLoading && <h2>Loading products</h2>}
+        {error ? (
+          <h2>Woops! Something went wrong...</h2>
+        ) : (
+          productsInfo?.map(
             ({
               id,
               data: {
@@ -65,10 +79,26 @@ function Grid({ productsInfo, categoriesInfo }) {
                     <p>Category: {getCategoryName(categoryId)}</p>
                     <p>Price: ${price}</p>
                   </ProductDesc>
+                  <ProductCardFooter>
+                    <ProductCardButton>
+                      <MdOutlineAddShoppingCart />
+                      <span style={{ marginLeft: 5 }}> Add to cart </span>
+                    </ProductCardButton>
+                    <Link
+                      to={`/product/${id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <ProductCardButton>
+                        <MdOutlineMore />
+                        <span style={{ marginLeft: 5 }}> Product detail </span>
+                      </ProductCardButton>
+                    </Link>
+                  </ProductCardFooter>
                 </ProductCard>
               </Col>
             )
-          )}
+          )
+        )}
       </Row>
     </>
   );

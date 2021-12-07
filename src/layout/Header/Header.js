@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import LogoSrc from "../../assets/logo.png";
-import CartSrc from "../../assets/cart.png";
-import SearchSrc from "../../assets/search.png";
+import { MdOutlineShoppingCart, MdOutlineSearch } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const HeaderContainer = styled.header`
   background-color: PapayaWhip;
@@ -29,36 +29,45 @@ const SiteLogo = styled.img`
   margin-right: 10px;
 `;
 
-const CartLogo = styled.img`
-  height: 30px;
-`;
-
-const SearchLogo = styled.img`
-  height: 20px;
-  margin-right: 10px;
+const SearchButton = styled.button`
+  background-color: black;
+  color: white;
+  font-size: large;
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  padding: 7px;
 `;
 
 const SearchInput = styled.input`
   line-height: 30px;
-  margin-right: 20px;
+  font-size: medium;
 `;
 
-function Header({ setPage }) {
-  const navigateToHome = () => {
-    setPage("home");
+function Header() {
+  const handleInputChange = (event) => {
+    const { value } = event.target;
+    setSearch(value);
   };
 
+  const [search, setSearch] = useState("");
   return (
     <HeaderContainer>
-      <LogoSection onClick={navigateToHome}>
-        <SiteLogo src={LogoSrc} alt="Logo" />
-        Globox
-      </LogoSection>
-
+      <Link to="/">
+        <LogoSection>
+          <SiteLogo src={LogoSrc} alt="Logo" />
+          Globox
+        </LogoSection>
+      </Link>
       <HeaderSection>
-        <SearchLogo src={SearchSrc} alt="Search" />
-        <SearchInput type="text" />
-        <CartLogo src={CartSrc} alt="Cart" />
+        <SearchInput type="text" value={search} onChange={handleInputChange} />
+        <Link to={`/search/?q=${search}`}>
+          <SearchButton>
+            <MdOutlineSearch />
+          </SearchButton>
+        </Link>
+
+        <MdOutlineShoppingCart style={{ fontSize: 30 }} />
       </HeaderSection>
     </HeaderContainer>
   );
