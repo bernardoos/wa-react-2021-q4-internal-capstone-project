@@ -43,7 +43,7 @@ function ProductInfo({ productData, productTags }) {
           </Label>
 
           {productTags?.map((tag) => (
-            <LabelInfo>{tag}</LabelInfo>
+            <LabelInfo key={tag}>{tag}</LabelInfo>
           ))}
         </Col>
       </Row>

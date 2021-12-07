@@ -12,32 +12,45 @@ import {
 } from "react-router-dom";
 import ProductDetail from "pages/ProductDetail/ProductDetail";
 import SearchResults from "pages/SearchResults/SearchResults";
+import CartContext from "state/CartContext";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [products, setProducts] = useState([]);
+  const [totalProducts, setTotalProducts] = useState(0);
+
+  useEffect(() => {
+    console.log("cart products", products);
+    console.log("total prods", totalProducts);
+  }, [products]);
+
   return (
     <div className="App">
-      <Router>
-        <Header />
-        <Switch>
-          <Redirect
-            from="/wa-react-2021-q4-internal-capstone-project"
-            to="/home"
-          />
-          <Route exact path={["/", "/home"]}>
-            <Homepage />
-          </Route>
-          <Route exact path="/product/:id">
-            <ProductDetail />
-          </Route>
-          <Route exact path="/products">
-            <ProductList />
-          </Route>
-          <Route path="/search">
-            <SearchResults />
-          </Route>
-        </Switch>
-      </Router>
-
+      <CartContext.Provider
+        value={{ products, setProducts, totalProducts, setTotalProducts }}
+      >
+        <Router>
+          <Header />
+          <Switch>
+            <Redirect
+              from="/wa-react-2021-q4-internal-capstone-project"
+              to="/home"
+            />
+            <Route exact path={["/", "/home"]}>
+              <Homepage />
+            </Route>
+            <Route exact path="/product/:id">
+              <ProductDetail />
+            </Route>
+            <Route exact path="/products">
+              <ProductList />
+            </Route>
+            <Route path="/search">
+              <SearchResults />
+            </Route>
+          </Switch>
+        </Router>
+      </CartContext.Provider>
       <Footer />
     </div>
   );
