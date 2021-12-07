@@ -67,7 +67,7 @@ function Header() {
             <MdOutlineSearch />
           </SearchButton>
         </Link>
-        <Link to="/" className="shoppingCartLink">
+        <Link to="/cart" className="shoppingCartLink">
           <ShoppingCartIcon />
         </Link>
       </HeaderSection>

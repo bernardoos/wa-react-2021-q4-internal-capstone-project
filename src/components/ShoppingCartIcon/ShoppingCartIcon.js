@@ -10,7 +10,7 @@ const ShoppingCartIconContainer = styled.div`
     right: 5px;
     padding: 4px 8px;
     border-radius: 50%;
-    background: red;
+    background: crimson;
     color: white;
     font-size: 0.7em;
   }

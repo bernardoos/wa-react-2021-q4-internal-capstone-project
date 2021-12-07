@@ -13,16 +13,18 @@ import {
 import ProductDetail from "pages/ProductDetail/ProductDetail";
 import SearchResults from "pages/SearchResults/SearchResults";
 import CartContext from "state/CartContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import ShoppingCart from "pages/ShoppingCart/ShoppingCart";
+import Checkout from "pages/Checkout/Checkout";
 
 function App() {
   const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
 
-  useEffect(() => {
-    console.log("cart products", products);
-    console.log("total prods", totalProducts);
-  }, [products]);
+  // useEffect(() => {
+  //   console.log("cart products", products);
+  //   console.log("total prods", totalProducts);
+  // }, [products]);
 
   return (
     <div className="App">
@@ -47,6 +49,12 @@ function App() {
             </Route>
             <Route path="/search">
               <SearchResults />
+            </Route>
+            <Route path="/cart">
+              <ShoppingCart />
+            </Route>
+            <Route path="/checkout">
+              <Checkout />
             </Route>
           </Switch>
         </Router>

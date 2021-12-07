@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { useProductCategories } from "utils/hooks/useProductCategories";
 import { MdOutlineAddShoppingCart, MdOutlineMore } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { Row, Col } from "StyledComponents";
+import CartContext from "state/CartContext";
 
 const ProductCard = styled.div`
   display: flex;
@@ -48,10 +49,33 @@ const ProductCardButton = styled.button`
 
 function Grid({ productsInfo, isLoading, error }) {
   const { data: categoriesInfo = [] } = useProductCategories();
+  const { products, setProducts, setTotalProducts } = useContext(CartContext);
+
+  console.log("info", productsInfo);
 
   const getCategoryName = (cateogryId) =>
     categoriesInfo.results?.find((category) => category.id === cateogryId).data
       .name;
+
+  const addProductToCart = (productInfo) => {
+    const productExists = products.some((prod) => prod.id === productInfo.id);
+    if (productExists) {
+      setProducts((prevProducts) =>
+        prevProducts.map((prod) =>
+          prod.id === productInfo.id
+            ? { ...prod, cartAmount: prod.cartAmount + 1 }
+            : prod
+        )
+      );
+    } else {
+      setProducts((prevProducts) => [
+        ...prevProducts,
+        { ...productInfo, cartAmount: 1 },
+      ]);
+    }
+
+    setTotalProducts((prevTotal) => (prevTotal += 1));
+  };
 
   return (
     <>
@@ -61,43 +85,36 @@ function Grid({ productsInfo, isLoading, error }) {
         {error ? (
           <h2>Woops! Something went wrong...</h2>
         ) : (
-          productsInfo?.map(
-            ({
-              id,
-              data: {
-                name,
-                price,
-                category: { id: categoryId },
-                mainimage: { url, alt },
-              },
-            }) => (
-              <Col key={id}>
-                <ProductCard>
-                  <ProductImg src={url} alt={alt} />
-                  <ProductDesc>
-                    <h3>{name}</h3>
-                    <p>Category: {getCategoryName(categoryId)}</p>
-                    <p>Price: ${price}</p>
-                  </ProductDesc>
-                  <ProductCardFooter>
+          productsInfo?.map((prdouct) => (
+            <Col key={prdouct.id}>
+              <ProductCard>
+                <ProductImg
+                  src={prdouct.data.mainimage.url}
+                  alt={prdouct.data.mainimage.alt}
+                />
+                <ProductDesc>
+                  <h3>{prdouct.data.name}</h3>
+                  <p>Category: {getCategoryName(prdouct.data.category.id)}</p>
+                  <p>Price: ${prdouct.data.price}</p>
+                </ProductDesc>
+                <ProductCardFooter>
+                  <ProductCardButton onClick={() => addProductToCart(prdouct)}>
+                    <MdOutlineAddShoppingCart />
+                    <span style={{ marginLeft: 5 }}> Add to cart </span>
+                  </ProductCardButton>
+                  <Link
+                    to={`/product/${prdouct.id}`}
+                    style={{ textDecoration: "none" }}
+                  >
                     <ProductCardButton>
-                      <MdOutlineAddShoppingCart />
-                      <span style={{ marginLeft: 5 }}> Add to cart </span>
+                      <MdOutlineMore />
+                      <span style={{ marginLeft: 5 }}> Product detail </span>
                     </ProductCardButton>
-                    <Link
-                      to={`/product/${id}`}
-                      style={{ textDecoration: "none" }}
-                    >
-                      <ProductCardButton>
-                        <MdOutlineMore />
-                        <span style={{ marginLeft: 5 }}> Product detail </span>
-                      </ProductCardButton>
-                    </Link>
-                  </ProductCardFooter>
-                </ProductCard>
-              </Col>
-            )
-          )
+                  </Link>
+                </ProductCardFooter>
+              </ProductCard>
+            </Col>
+          ))
         )}
       </Row>
     </>

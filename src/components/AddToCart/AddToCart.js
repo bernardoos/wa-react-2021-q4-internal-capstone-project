@@ -82,7 +82,7 @@ function AddToCart({ productInfo }) {
       setProducts((prevProducts) =>
         prevProducts.map((prod) =>
           prod.id === productInfo.id
-            ? { ...prod, cartAmount: (prod.cartAmount += Number(addAmount)) }
+            ? { ...prod, cartAmount: prod.cartAmount + Number(addAmount) }
             : prod
         )
       );
