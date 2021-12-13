@@ -20,7 +20,6 @@ const PaginatorContainer = styled.div`
 function Paginator({ pages, setPage }) {
   const handleClickPage = (event) => {
     const page = event.target.innerHTML;
-    console.log("pageee", page);
 
     setPage(page);
   };

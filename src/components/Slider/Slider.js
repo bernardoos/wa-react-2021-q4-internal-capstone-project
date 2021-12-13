@@ -39,7 +39,7 @@ function Slider() {
                 main_image: { alt, url },
               },
             }) => (
-              <SliderImg src={url} alt={alt} key={id} />
+              <SliderImg src={url} alt={alt} key={id} title="slider-img" />
             )
           )}
         </SlickSlider>

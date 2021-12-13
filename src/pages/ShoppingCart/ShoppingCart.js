@@ -106,7 +106,6 @@ function ShoppingCart() {
   };
 
   const removeFromCart = (productId) => {
-    console.log("remove");
     setProducts((prevProducts) =>
       prevProducts.filter((prod) => prod.id !== productId)
     );

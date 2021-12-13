@@ -32,6 +32,7 @@ function Homepage() {
           error={error}
         />
       </ContentContainer>
+
       <Link to="/products">
         <ViewButton>View All Products</ViewButton>
       </Link>

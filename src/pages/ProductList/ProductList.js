@@ -39,8 +39,6 @@ function ProductList() {
   useEffect(() => {
     let auxProducts = [];
 
-    console.log("ahora", productsInfo);
-
     if (selectedProductsIds.length === 0) {
       auxProducts = productsInfo?.results;
     } else {
