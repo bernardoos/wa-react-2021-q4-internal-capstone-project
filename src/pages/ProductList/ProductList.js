@@ -18,8 +18,10 @@ const PaginatorContainer = styled.div`
 
 function ProductList() {
   const [page, setPage] = useState(1);
-  const { data: categoriesInfo = [] } = useProductCategories();
-  const { data: productsInfo = [] } = useProducts(page);
+  const { data: categoriesInfo = [], isLoading: categoriesIsLoading } =
+    useProductCategories();
+  const { data: productsInfo = [], isLoading: productsIsLoading } =
+    useProducts(page);
 
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [selectedProductsIds, setSelectedProductsIds] = useState([]);
@@ -60,6 +62,7 @@ function ProductList() {
       <div id="wrapper">
         <Sidebar
           categoriesInfo={categoriesInfo}
+          isLoading={categoriesIsLoading}
           selectedProductsIds={selectedProductsIds}
           setSelectedProductsIds={setSelectedProductsIds}
         />
@@ -67,7 +70,7 @@ function ProductList() {
           <div className="container-fluid">
             <h1>This is the Product List Page</h1>
           </div>
-          <Grid productsInfo={selectedProducts} />
+          <Grid productsInfo={selectedProducts} isLoading={productsIsLoading} />
           <PaginatorContainer>
             <Paginator pages={productsInfo.total_pages} setPage={setPage} />
           </PaginatorContainer>

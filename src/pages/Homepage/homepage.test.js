@@ -17,9 +17,7 @@ describe("When Homepage is mounted", () => {
     ).toBeInTheDocument();
 
     await waitFor(() =>
-      expect(
-        screen.getByRole("img", { title: "slider-img" })
-      ).toBeInTheDocument()
+      expect(screen.getAllByTitle("slider-img")).toHaveLength(7)
     );
   });
 
@@ -29,9 +27,7 @@ describe("When Homepage is mounted", () => {
     ).toBeInTheDocument();
 
     await waitFor(() =>
-      expect(
-        screen.getByRole("img", { title: "carousel-img" })
-      ).toBeInTheDocument()
+      expect(screen.getAllByTitle("carousel-img")).toHaveLength(11)
     );
   });
 

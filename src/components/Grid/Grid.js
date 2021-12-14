@@ -48,7 +48,8 @@ const ProductCardButton = styled.button`
 `;
 
 function Grid({ productsInfo, isLoading, error }) {
-  const { data: categoriesInfo = [] } = useProductCategories();
+  const { data: categoriesInfo = [], isLoading: categoriesIsLoading } =
+    useProductCategories();
   const { products, setProducts, setTotalProducts } = useContext(CartContext);
 
   const getCategoryName = (cateogryId) =>
@@ -85,7 +86,11 @@ function Grid({ productsInfo, isLoading, error }) {
         ) : (
           productsInfo?.map((product) => (
             <Col key={product.id}>
-              <ProductCard>
+              <ProductCard
+                data-testid={`productCategory${getCategoryName(
+                  product.data.category.id
+                )}`}
+              >
                 <ProductImg
                   src={product.data.mainimage.url}
                   alt={product.data.mainimage.alt}
@@ -93,7 +98,12 @@ function Grid({ productsInfo, isLoading, error }) {
                 />
                 <ProductDesc>
                   <h3>{product.data.name}</h3>
-                  <p>Category: {getCategoryName(product.data.category.id)}</p>
+                  <p>
+                    Category:
+                    {categoriesIsLoading
+                      ? "Product category loading"
+                      : getCategoryName(product.data.category.id)}
+                  </p>
                   <p>Price: ${product.data.price}</p>
                 </ProductDesc>
                 <ProductCardFooter>
