@@ -4,7 +4,7 @@ export const handlers = [
   rest.get(
     "https://wizeline-academy.cdn.prismic.io/api/v2",
     (req, res, ctx) => {
-      console.log("spiderman", req);
+      console.log("mock handler", req);
       return res(
         ctx.status(200),
         ctx.json([
