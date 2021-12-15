@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MdArrowBackIos, MdArrowForwardIos } from "react-icons/md";
 
@@ -17,20 +17,41 @@ const PaginatorContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-function Paginator({ pages, setPage }) {
+function Paginator({ pages, page, setPage }) {
+  const [prevPageDisabled, setPrevPageDisabled] = useState(true);
+  const [nextPageDisabled, setNextPageDisabled] = useState(false);
+
+  useEffect(() => {
+    checkCurrentPage();
+  }, [page]);
+
+  const checkCurrentPage = () => {
+    if (Number(page) === pages) {
+      setNextPageDisabled(true);
+    } else {
+      setNextPageDisabled(false);
+    }
+
+    if (Number(page) > 1) {
+      setPrevPageDisabled(false);
+    } else {
+      setPrevPageDisabled(true);
+    }
+  };
+
   const handleClickPage = (event) => {
     const page = event.target.innerHTML;
-
     setPage(page);
   };
 
   const handleClickNext = () => {
     setPage((currentPage) => {
-      if (currentPage !== pages) {
+      if (Number(currentPage) !== pages) {
         return parseInt(currentPage) + 1;
       }
       return currentPage;
     });
+    checkCurrentPage();
   };
 
   const handleClickPrevious = () => {
@@ -40,23 +61,39 @@ function Paginator({ pages, setPage }) {
       }
       return currentPage;
     });
+
+    checkCurrentPage();
   };
 
   return (
     <PaginatorContainer>
-      <MdArrowBackIos
-        style={{ marginRight: 5, cursor: "pointer" }}
+      <button
+        style={{
+          marginRight: 5,
+          cursor: prevPageDisabled ? "not-allowed" : "pointer",
+        }}
+        disabled={prevPageDisabled}
+        data-testid="prevPageArrow"
         onClick={handleClickPrevious}
-      />
+      >
+        <MdArrowBackIos />
+      </button>
       {Array.from(Array(pages).keys()).map((page) => (
-        <PageButton key={page} onClick={handleClickPage}>
+        <PageButton key={page} onClick={handleClickPage} title="pageButton">
           {page + 1}
         </PageButton>
       ))}
-      <MdArrowForwardIos
-        style={{ marginLeft: 5, cursor: "pointer" }}
+      <button
+        style={{
+          marginLeft: 5,
+          cursor: nextPageDisabled ? "not-allowed" : "pointer",
+        }}
         onClick={handleClickNext}
-      />
+        disabled={nextPageDisabled}
+        data-testid="nextPageArrow"
+      >
+        <MdArrowForwardIos />
+      </button>
     </PaginatorContainer>
   );
 }

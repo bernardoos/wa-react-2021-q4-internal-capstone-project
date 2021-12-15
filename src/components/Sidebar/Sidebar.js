@@ -25,6 +25,8 @@ function Sidebar({
     setSelectedProductsIds([]);
   };
 
+  console.log("sidebard orid", categoriesInfo, isLoading);
+
   return (
     <>
       <div id="sidebar-wrapper">
@@ -34,7 +36,7 @@ function Sidebar({
             <li className="sidebar-brand" key={id} onClick={selectCategory}>
               <span
                 role="listitem"
-                title="sidebar-category"
+                title="sidebarCategory"
                 data-testid={`sidebar${name}`}
                 className={
                   selectedProductsIds.includes(id) ? "selected-category" : null

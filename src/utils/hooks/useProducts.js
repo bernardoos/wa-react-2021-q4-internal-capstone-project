@@ -20,6 +20,8 @@ export function useProducts(page) {
       try {
         setProducts({ data: {}, isLoading: true });
 
+        console.log("entering fetch");
+
         const response = await fetch(
           `${API_BASE_URL}/documents/search?ref=${apiRef}&q=${encodeURIComponent(
             '[[at(document.type, "product")]]'

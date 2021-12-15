@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-// import { mswServer } from "./mocks/msw-server";
+import { mswServer } from "./mocks/msw-server";
 
 window.matchMedia =
   window.matchMedia ||
@@ -11,6 +11,6 @@ window.matchMedia =
     };
   };
 
-// beforeAll(() => mswServer.listen());
-// afterEach(() => mswServer.resetHandlers());
-// afterAll(() => mswServer.close());
+beforeAll(() => mswServer.listen());
+afterEach(() => mswServer.resetHandlers());
+afterAll(() => mswServer.close());

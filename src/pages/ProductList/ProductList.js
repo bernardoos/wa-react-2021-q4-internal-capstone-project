@@ -8,6 +8,7 @@ import Paginator from "components/Paginator/Paginator";
 import { useProducts } from "utils/hooks/useProducts";
 import { useLocation } from "react-router-dom";
 import { ContentContainer } from "StyledComponents";
+import mockCategories from "mocks/en-us/product-categories.json";
 
 const PaginatorContainer = styled.div`
   width: 100%;
@@ -72,7 +73,11 @@ function ProductList() {
           </div>
           <Grid productsInfo={selectedProducts} isLoading={productsIsLoading} />
           <PaginatorContainer>
-            <Paginator pages={productsInfo.total_pages} setPage={setPage} />
+            <Paginator
+              pages={productsInfo.total_pages}
+              setPage={setPage}
+              page={page}
+            />
           </PaginatorContainer>
         </div>
       </div>

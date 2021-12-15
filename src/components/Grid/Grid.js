@@ -76,9 +76,12 @@ function Grid({ productsInfo, isLoading, error }) {
     setTotalProducts((prevTotal) => (prevTotal += 1));
   };
 
+  console.log("grid orid", categoriesInfo, categoriesIsLoading);
+
   return (
     <>
       <br />
+      {categoriesIsLoading && <div>Loading product categories</div>}
       <Row role="row" title="grid-row">
         {isLoading && <h2>Loading products</h2>}
         {error ? (
@@ -88,7 +91,7 @@ function Grid({ productsInfo, isLoading, error }) {
             <Col key={product.id}>
               <ProductCard
                 data-testid={`productCategory${getCategoryName(
-                  product.data.category.id
+                  product.data?.category?.id
                 )}`}
               >
                 <ProductImg
@@ -101,7 +104,7 @@ function Grid({ productsInfo, isLoading, error }) {
                   <p>
                     Category:
                     {categoriesIsLoading
-                      ? "Product category loading"
+                      ? "Loading product category"
                       : getCategoryName(product.data.category.id)}
                   </p>
                   <p>Price: ${product.data.price}</p>
