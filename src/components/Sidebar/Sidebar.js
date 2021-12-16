@@ -25,8 +25,6 @@ function Sidebar({
     setSelectedProductsIds([]);
   };
 
-  console.log("sidebard orid", categoriesInfo, isLoading);
-
   return (
     <>
       <div id="sidebar-wrapper">

@@ -76,8 +76,6 @@ function Grid({ productsInfo, isLoading, error }) {
     setTotalProducts((prevTotal) => (prevTotal += 1));
   };
 
-  console.log("grid orid", categoriesInfo, categoriesIsLoading);
-
   return (
     <>
       <br />

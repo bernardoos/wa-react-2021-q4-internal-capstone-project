@@ -19,14 +19,15 @@ const PaginatorContainer = styled.div`
 
 function Paginator({ pages, page, setPage }) {
   const [prevPageDisabled, setPrevPageDisabled] = useState(true);
-  const [nextPageDisabled, setNextPageDisabled] = useState(false);
+  const [nextPageDisabled, setNextPageDisabled] = useState(true);
 
   useEffect(() => {
     checkCurrentPage();
-  }, [page]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, pages]);
 
   const checkCurrentPage = () => {
-    if (Number(page) === pages) {
+    if (Number(page) >= pages) {
       setNextPageDisabled(true);
     } else {
       setNextPageDisabled(false);
@@ -46,9 +47,11 @@ function Paginator({ pages, page, setPage }) {
 
   const handleClickNext = () => {
     setPage((currentPage) => {
-      if (Number(currentPage) !== pages) {
+      if (Number(currentPage) < pages) {
         return parseInt(currentPage) + 1;
       }
+
+      console.log("click", currentPage, pages);
       return currentPage;
     });
     checkCurrentPage();

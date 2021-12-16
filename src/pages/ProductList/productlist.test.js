@@ -63,7 +63,7 @@ describe("When interacting with the Product Category Sidebar", () => {
       );
     } catch (error) {}
 
-    const products = await screen.findAllByTestId(/productCategoryDecorate/i);
+    const products = await screen.findAllByTestId(/productCategoryFurniture/i);
     expect(products.length).toBeGreaterThan(0);
   });
 });
@@ -76,23 +76,32 @@ describe("When interacting with the Pagination Controls", () => {
   });
 
   it("must disable Prev button when the user is on the first page", async () => {
+    await waitForElementToBeRemoved(screen.queryByText(/loading products/i));
     const button = (await screen.findAllByTitle(/pageButton/i))[0];
     fireEvent.click(button);
-    expect(screen.getByTestId(/prevPageArrow/i)).toBeDisabled();
+    expect(await screen.findByTestId(/prevPageArrow/i)).toBeDisabled();
   });
 
   it("must fetch the previous page when clicking the Prev button", async () => {
     const prevPageArrow = await screen.findByTestId(/prevPageArrow/i);
     fireEvent.click(prevPageArrow);
+
+    const products = await screen.findAllByTestId(/productCategoryFurniture/i);
+    expect(products.length).toBeGreaterThan(0);
   });
 
-  it("must fetch the next page when clicking the Next button", async () => {});
+  it("must fetch the next page when clicking the Next button", async () => {
+    const nextPageArrow = await screen.findByTestId(/nextPageArrow/i);
+    fireEvent.click(nextPageArrow);
+
+    const products = await screen.findAllByTestId(/productCategoryFurniture/i);
+    expect(products.length).toBeGreaterThan(0);
+  });
 
   it("must disable Next button when the user is on the last page", async () => {
-    const button = (await screen.findAllByTitle(/pageButton/i)).pop();
-
-    fireEvent.click(button);
-    fireEvent.click(button);
-    expect(screen.getByTestId(/nextPageArrow/i)).toBeDisabled();
+    await waitForElementToBeRemoved(screen.queryByText(/loading products/i));
+    const nextPageArrow = await screen.findByTestId(/nextPageArrow/i);
+    fireEvent.click(nextPageArrow);
+    expect(await screen.findByTestId(/nextPageArrow/i)).toBeDisabled();
   });
 });
