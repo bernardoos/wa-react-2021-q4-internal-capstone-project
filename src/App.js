@@ -13,7 +13,7 @@ import {
 import ProductDetail from "pages/ProductDetail/ProductDetail";
 import SearchResults from "pages/SearchResults/SearchResults";
 import CartContext from "state/CartContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ShoppingCart from "pages/ShoppingCart/ShoppingCart";
 import Checkout from "pages/Checkout/Checkout";
 
@@ -24,7 +24,7 @@ function App() {
   // useEffect(() => {
   //   console.log("cart products", products);
   //   console.log("total prods", totalProducts);
-  // }, [products]);
+  // }, [products, totalProducts]);
 
   return (
     <div className="App">

@@ -1,34 +1,19 @@
 import {
-  act,
   fireEvent,
   render,
   screen,
-  waitFor,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
 import ProductList from "./ProductList";
 import mockProducts from "mocks/en-us/products.json";
-import mockCategories from "mocks/en-us/product-categories.json";
 import { BrowserRouter } from "react-router-dom";
-import * as useProductsHook from "utils/hooks/useProducts";
-import * as useProductCategoriesHook from "utils/hooks/useProductCategories";
 
 beforeEach(() => {
-  // jest.spyOn(useProductsHook, "useProducts").mockResolvedValue(mockProducts);
-
-  // jest
-  //   .spyOn(useProductCategoriesHook, "useProductCategories")
-  //   .mockResolvedValue(mockCategories);
-
   render(
     <BrowserRouter>
       <ProductList />
     </BrowserRouter>
   );
-});
-
-afterEach(() => {
-  jest.restoreAllMocks();
 });
 
 describe("When the Product List Page is mounted", () => {

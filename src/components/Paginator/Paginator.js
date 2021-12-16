@@ -51,7 +51,6 @@ function Paginator({ pages, page, setPage }) {
         return parseInt(currentPage) + 1;
       }
 
-      console.log("click", currentPage, pages);
       return currentPage;
     });
     checkCurrentPage();

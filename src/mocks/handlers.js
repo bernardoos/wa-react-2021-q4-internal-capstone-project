@@ -13,6 +13,8 @@ export const handlers = [
     (req, res, ctx) => {
       const q = req.url.searchParams.getAll("q");
 
+      console.log("q", q);
+
       if (queryIncludes(q, "featured")) {
         return res(ctx.status(200), ctx.json(mockFeaturedProducts));
       }
@@ -25,7 +27,26 @@ export const handlers = [
         return res(ctx.status(200), ctx.json(mockFeaturedBanners));
       }
 
-      if (queryIncludes(q, "product")) {
+      if (queryIncludes(q, "fulltext")) {
+        if (queryIncludes(q, "furniture")) {
+          console.log("includes furniture");
+          return res(ctx.status(200), ctx.json(mockProducts));
+        }
+
+        console.log("otro");
+        return {
+          page: 1,
+          results_per_page: 50,
+          results_size: 0,
+          total_results_size: 0,
+          total_pages: 1,
+          next_page: null,
+          prev_page: null,
+          results: [],
+        };
+      }
+
+      if (queryIncludes(q, "product") || queryIncludes(q, "document.id")) {
         return res(ctx.status(200), ctx.json(mockProducts));
       }
     }

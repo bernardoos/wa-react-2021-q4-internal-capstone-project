@@ -48,6 +48,8 @@ const SearchInput = styled.input`
 function Header() {
   const handleInputChange = (event) => {
     const { value } = event.target;
+
+    console.log("input change", event.target.value);
     setSearch(value);
   };
 
@@ -61,9 +63,14 @@ function Header() {
         </LogoSection>
       </Link>
       <HeaderSection>
-        <SearchInput type="text" value={search} onChange={handleInputChange} />
+        <SearchInput
+          type="text"
+          value={search}
+          onChange={handleInputChange}
+          title="searchInput"
+        />
         <Link to={`/search/?q=${search}`}>
-          <SearchButton>
+          <SearchButton title="searchButton">
             <MdOutlineSearch />
           </SearchButton>
         </Link>

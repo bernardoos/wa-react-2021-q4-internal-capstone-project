@@ -28,7 +28,10 @@ function ShoppingCartIcon() {
   return (
     <ShoppingCartIconContainer>
       <CartIcon />
-      {totalProducts > 0 && <span className="badge">{totalProducts}</span>}
+
+      <span className="badge" data-testid="cartBadge">
+        {totalProducts}
+      </span>
     </ShoppingCartIconContainer>
   );
 }

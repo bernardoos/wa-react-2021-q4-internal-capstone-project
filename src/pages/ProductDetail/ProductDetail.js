@@ -9,7 +9,7 @@ import AddToCart from "components/AddToCart/AddToCart";
 
 function ProductDetail() {
   const { id } = useParams();
-  const { data = [] } = useProductDetail(id);
+  const { data = [], isLoading } = useProductDetail(id);
   const [images, setImages] = useState([]);
   const [productInfo, setProductInfo] = useState({});
 
@@ -23,6 +23,7 @@ function ProductDetail() {
 
   return (
     <ContentContainer>
+      {isLoading && <h2>Loading product info</h2>}
       <Row>
         <Col>
           <Gallery images={images} />

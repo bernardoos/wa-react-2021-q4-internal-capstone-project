@@ -13,25 +13,27 @@ import { capitalize } from "utils/utils";
 function ProductInfo({ productData, productTags }) {
   return (
     <SectionContainer>
-      <h1>{productData?.name}</h1>
+      <h1 title="productName">{productData?.name}</h1>
       <br />
       <Row>
         <Col>
           <LabelTitle>Description</LabelTitle>
-          <LabelDesc>{productData?.description[0]?.text}</LabelDesc>
+          <LabelDesc title="productDescription">
+            {productData?.description[0]?.text}
+          </LabelDesc>
         </Col>
         <Col>
           <Label>
             <LabelTitle>Price:</LabelTitle>
-            <LabelInfo>${productData?.price}</LabelInfo>
+            <LabelInfo title="productPrice">${productData?.price}</LabelInfo>
           </Label>
           <Label>
             <LabelTitle>SKU:</LabelTitle>
-            <LabelInfo>{productData?.sku}</LabelInfo>
+            <LabelInfo title="productSKU">{productData?.sku}</LabelInfo>
           </Label>
           <Label>
             <LabelTitle>Category:</LabelTitle>
-            <LabelInfo>
+            <LabelInfo title="productCategory">
               {productData?.category && capitalize(productData.category?.slug)}
             </LabelInfo>
           </Label>
@@ -42,7 +44,9 @@ function ProductInfo({ productData, productTags }) {
           </Label>
 
           {productTags?.map((tag) => (
-            <LabelInfo key={tag}>{tag}</LabelInfo>
+            <LabelInfo title="productTags" key={tag}>
+              {tag}
+            </LabelInfo>
           ))}
         </Col>
       </Row>

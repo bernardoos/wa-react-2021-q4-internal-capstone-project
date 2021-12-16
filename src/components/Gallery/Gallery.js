@@ -19,9 +19,10 @@ export default function Gallery({ images }) {
         spaceBetween={10}
         navigation={true}
         className="productGallery"
+        title="productGallery"
       >
         {images?.map(({ image }, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index} title="productGallerySlide">
             <img src={image.url} alt={image.alt} />
           </SwiperSlide>
         ))}
