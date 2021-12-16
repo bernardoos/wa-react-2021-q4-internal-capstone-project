@@ -153,14 +153,14 @@ function ShoppingCart() {
               </tr>
             ))}
             <tr>
-              <CartTableNoBorderTd></CartTableNoBorderTd>
-              <CartTableNoBorderTd></CartTableNoBorderTd>
-              <CartTableNoBorderTd></CartTableNoBorderTd>
-              <CartTableNoBorderTd></CartTableNoBorderTd>
+              <CartTableNoBorderTd />
+              <CartTableNoBorderTd />
+              <CartTableNoBorderTd />
+              <CartTableNoBorderTd />
               <CartTableNoBorderTd>
                 <h2>Total: ${total}</h2>
               </CartTableNoBorderTd>
-              <CartTableNoBorderTd></CartTableNoBorderTd>
+              <CartTableNoBorderTd />
             </tr>
           </tbody>
         </CartTable>
