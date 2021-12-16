@@ -28,7 +28,7 @@ function ProductDetail() {
           <Gallery images={images} />
         </Col>
         <Col>
-          <AddToCart />
+          <AddToCart productInfo={productInfo} />
         </Col>
       </Row>
       <ProductInfo

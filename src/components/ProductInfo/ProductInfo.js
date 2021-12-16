@@ -23,7 +23,7 @@ function ProductInfo({ productData, productTags }) {
         <Col>
           <Label>
             <LabelTitle>Price:</LabelTitle>
-            <LabelInfo>${productData?.price}.00</LabelInfo>
+            <LabelInfo>${productData?.price}</LabelInfo>
           </Label>
           <Label>
             <LabelTitle>SKU:</LabelTitle>
@@ -38,12 +38,11 @@ function ProductInfo({ productData, productTags }) {
         </Col>
         <Col>
           <Label>
-            {" "}
             <LabelTitle>Tags</LabelTitle>
           </Label>
 
           {productTags?.map((tag) => (
-            <LabelInfo>{tag}</LabelInfo>
+            <LabelInfo key={tag}>{tag}</LabelInfo>
           ))}
         </Col>
       </Row>

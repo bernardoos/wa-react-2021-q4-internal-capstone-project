@@ -27,16 +27,18 @@ function ProductSpecs({ productSpecs }) {
       </Label>
 
       <SpecsTable>
-        <tr>
-          <SpecsTableTd>Spec</SpecsTableTd>
-          <SpecsTableTd>Description</SpecsTableTd>
-        </tr>
-        {productSpecs?.map(({ spec_name, spec_value }) => (
+        <tbody>
           <tr>
-            <SpecsTableTd>{spec_name}</SpecsTableTd>
-            <SpecsTableTd>{spec_value}</SpecsTableTd>
+            <SpecsTableTd>Spec</SpecsTableTd>
+            <SpecsTableTd>Description</SpecsTableTd>
           </tr>
-        ))}
+          {productSpecs?.map(({ spec_name, spec_value }) => (
+            <tr key={spec_name}>
+              <SpecsTableTd>{spec_name}</SpecsTableTd>
+              <SpecsTableTd>{spec_value}</SpecsTableTd>
+            </tr>
+          ))}
+        </tbody>
       </SpecsTable>
     </SectionContainer>
   );

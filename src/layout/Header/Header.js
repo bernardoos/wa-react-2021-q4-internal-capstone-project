@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import LogoSrc from "../../assets/logo.png";
-import { MdOutlineShoppingCart, MdOutlineSearch } from "react-icons/md";
+import { MdOutlineSearch } from "react-icons/md";
 import { Link } from "react-router-dom";
+import ShoppingCartIcon from "components/ShoppingCartIcon/ShoppingCartIcon";
 
 const HeaderContainer = styled.header`
   background-color: PapayaWhip;
@@ -66,8 +67,9 @@ function Header() {
             <MdOutlineSearch />
           </SearchButton>
         </Link>
-
-        <MdOutlineShoppingCart style={{ fontSize: 30 }} />
+        <Link to="/cart" className="shoppingCartLink">
+          <ShoppingCartIcon />
+        </Link>
       </HeaderSection>
     </HeaderContainer>
   );
