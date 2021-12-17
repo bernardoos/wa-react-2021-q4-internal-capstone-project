@@ -57,7 +57,6 @@ function Grid({ productsInfo, isLoading, error }) {
       .name;
 
   const addProductToCart = (productInfo) => {
-    console.log("entered add", productInfo);
     const productExists = products.some((prod) => prod.id === productInfo.id);
     if (productExists) {
       setProducts((prevProducts) =>

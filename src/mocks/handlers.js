@@ -13,8 +13,6 @@ export const handlers = [
     (req, res, ctx) => {
       const q = req.url.searchParams.getAll("q");
 
-      console.log("q", q);
-
       if (queryIncludes(q, "featured")) {
         return res(ctx.status(200), ctx.json(mockFeaturedProducts));
       }

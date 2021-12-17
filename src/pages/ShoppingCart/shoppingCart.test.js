@@ -1,4 +1,5 @@
 import {
+  cleanup,
   fireEvent,
   render,
   screen,
@@ -91,5 +92,69 @@ describe("When the ShoppingCart Page is mounted", () => {
     );
 
     expect(realTotal).toEqual(calculatedTotal);
+  });
+
+  it("must update the amount of items in the cart", async () => {
+    const headerLink = await screen.findByTitle(/headerLink/i);
+
+    act(() => {
+      fireEvent.click(headerLink);
+    });
+
+    try {
+      await waitForElementToBeRemoved(screen.queryByText(/loading products/i));
+    } catch (error) {}
+
+    const addToCartButton = (
+      await screen.findAllByRole("button", { name: /addToCartCardButton/i })
+    )[0];
+
+    const cartButton = await screen.findByTitle(/cartButton/i);
+
+    act(() => {
+      fireEvent.click(addToCartButton);
+      fireEvent.click(cartButton);
+    });
+
+    const productQtyInput = (
+      await screen.findAllByTitle(/productQtyInput/i)
+    )[0];
+
+    act(() => fireEvent.change(productQtyInput, { target: { value: 3 } }));
+
+    expect(productQtyInput).toHaveValue(3);
+  });
+
+  it("must remove a product from the cart", async () => {
+    const headerLink = await screen.findByTitle(/headerLink/i);
+
+    act(() => {
+      fireEvent.click(headerLink);
+    });
+
+    try {
+      await waitForElementToBeRemoved(screen.queryByText(/loading products/i));
+    } catch (error) {}
+
+    const addToCartButton = (
+      await screen.findAllByRole("button", { name: /addToCartCardButton/i })
+    )[0];
+
+    const cartButton = await screen.findByTitle(/cartButton/i);
+
+    act(() => {
+      fireEvent.click(addToCartButton);
+      fireEvent.click(cartButton);
+    });
+
+    const removeFromCartButton = (
+      await screen.findAllByTitle(/removeFromCartButton/i)
+    )[0];
+
+    act(() => fireEvent.click(removeFromCartButton));
+
+    const productInfoRows = screen.queryByTitle(/productInfoRow/i);
+
+    expect(productInfoRows).not.toBeInTheDocument();
   });
 });

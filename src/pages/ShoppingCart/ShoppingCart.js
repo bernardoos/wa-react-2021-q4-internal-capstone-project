@@ -133,6 +133,7 @@ function ShoppingCart() {
                 <CartTableTd>${product.data.price}</CartTableTd>
                 <CartTableTd>
                   <ProductQuantityInput
+                    title="productQtyInput"
                     type="number"
                     value={product.cartAmount}
                     min={0}
@@ -146,6 +147,7 @@ function ShoppingCart() {
                 <CartTableTd>
                   <RemoveFromCartButton
                     onClick={() => removeFromCart(product.id)}
+                    title="removeFromCartButton"
                   >
                     <MdOutlineRemoveShoppingCart />
                   </RemoveFromCartButton>

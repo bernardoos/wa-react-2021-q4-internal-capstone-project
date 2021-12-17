@@ -32,7 +32,7 @@
     "build": "react-scripts build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "test": "react-scripts test --watchAll=false",
+    "test": "react-scripts test --watchAll=false --silent",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
