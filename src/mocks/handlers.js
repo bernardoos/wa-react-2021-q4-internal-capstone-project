@@ -29,11 +29,9 @@ export const handlers = [
 
       if (queryIncludes(q, "fulltext")) {
         if (queryIncludes(q, "furniture")) {
-          console.log("includes furniture");
           return res(ctx.status(200), ctx.json(mockProducts));
         }
 
-        console.log("otro");
         return {
           page: 1,
           results_per_page: 50,

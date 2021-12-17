@@ -108,7 +108,10 @@ function Grid({ productsInfo, isLoading, error }) {
                   <p>Price: ${product.data.price}</p>
                 </ProductDesc>
                 <ProductCardFooter>
-                  <ProductCardButton onClick={() => addProductToCart(product)}>
+                  <ProductCardButton
+                    title="addToCartCardButton"
+                    onClick={() => addProductToCart(product)}
+                  >
                     <MdOutlineAddShoppingCart />
                     <span style={{ marginLeft: 5 }}> Add to cart </span>
                   </ProductCardButton>

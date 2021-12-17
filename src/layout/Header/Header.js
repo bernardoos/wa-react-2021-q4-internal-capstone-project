@@ -49,7 +49,6 @@ function Header() {
   const handleInputChange = (event) => {
     const { value } = event.target;
 
-    console.log("input change", event.target.value);
     setSearch(value);
   };
 

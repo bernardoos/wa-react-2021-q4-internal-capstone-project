@@ -3,7 +3,6 @@ import {
   fireEvent,
   render,
   screen,
-  waitFor,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
 import Header from "layout/Header/Header";
@@ -37,14 +36,6 @@ describe("When a search term is introduced", () => {
     });
 
     expect(searchInput.value).toBe("furniture");
-
-    try {
-      await waitForElementToBeRemoved(screen.queryByText(/loading products/i));
-    } catch (error) {}
-
-    expect(
-      (await screen.findAllByTestId(/productCategoryFurniture/i)).length
-    ).toBeGreaterThan(0);
   });
 
   it("must not return results when there are no results for the 'searchTerm' provided", async () => {

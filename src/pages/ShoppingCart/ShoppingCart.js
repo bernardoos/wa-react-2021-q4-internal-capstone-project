@@ -125,7 +125,7 @@ function ShoppingCart() {
               <CartTableNoBorderTd></CartTableNoBorderTd>
             </tr>
             {products?.map((product) => (
-              <tr key={product.id}>
+              <tr key={product.id} title="productInfoRow">
                 <CartTableTd>
                   <CartProductImg src={product.data.mainimage.url} />
                 </CartTableTd>
