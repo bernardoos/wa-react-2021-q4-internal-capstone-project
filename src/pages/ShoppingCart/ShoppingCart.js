@@ -140,7 +140,7 @@ function ShoppingCart() {
                     onChange={(e) => updateQuantity(e, product.id)}
                   />
                 </CartTableTd>
-                <CartTableTd>
+                <CartTableTd title="productSubtotal">
                   ${product.data.price * product.cartAmount}
                 </CartTableTd>
                 <CartTableTd>
@@ -157,7 +157,7 @@ function ShoppingCart() {
               <CartTableNoBorderTd />
               <CartTableNoBorderTd />
               <CartTableNoBorderTd />
-              <CartTableNoBorderTd>
+              <CartTableNoBorderTd title="realTotal">
                 <h2>Total: ${total}</h2>
               </CartTableNoBorderTd>
               <CartTableNoBorderTd />

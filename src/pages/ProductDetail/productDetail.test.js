@@ -1,10 +1,12 @@
 import {
   act,
+  cleanup,
   fireEvent,
   render,
   screen,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
+import App from "App";
 import Header from "layout/Header/Header";
 import { BrowserRouter } from "react-router-dom";
 import ProductDetail from "./ProductDetail";
@@ -66,6 +68,27 @@ describe("When the Product Detail Page is mounted", () => {
 
 describe("When 'Add to cart' button is clicked", () => {
   it("must add the corresponding number of products to the cart", async () => {
+    cleanup();
+    render(<App />);
+
+    const headerLink = await screen.findByTitle(/headerLink/i);
+
+    act(() => {
+      fireEvent.click(headerLink);
+    });
+
+    try {
+      await waitForElementToBeRemoved(screen.queryByText(/loading products/i));
+    } catch (error) {}
+
+    const productDetailButton = (
+      await screen.findAllByTitle("productDetailButton")
+    )[0];
+
+    act(() => {
+      fireEvent.click(productDetailButton);
+    });
+
     try {
       await waitForElementToBeRemoved(
         screen.queryByText(/loading product info/i)
@@ -83,7 +106,7 @@ describe("When 'Add to cart' button is clicked", () => {
 
     const cartBadge = await screen.findByTestId(/cartBadge/i);
 
-    expect(cartBadge).toHaveTextContent("0");
+    expect(cartBadge).toHaveTextContent("2");
   });
 
   it("must disable the button if the number of products is greater than the stock", async () => {

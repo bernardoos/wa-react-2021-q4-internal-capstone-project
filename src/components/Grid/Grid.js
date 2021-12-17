@@ -57,6 +57,7 @@ function Grid({ productsInfo, isLoading, error }) {
       .name;
 
   const addProductToCart = (productInfo) => {
+    console.log("entered add", productInfo);
     const productExists = products.some((prod) => prod.id === productInfo.id);
     if (productExists) {
       setProducts((prevProducts) =>
@@ -119,7 +120,7 @@ function Grid({ productsInfo, isLoading, error }) {
                     to={`/product/${product.id}`}
                     style={{ textDecoration: "none" }}
                   >
-                    <ProductCardButton>
+                    <ProductCardButton title="productDetailButton">
                       <MdOutlineMore />
                       <span style={{ marginLeft: 5 }}> Product detail </span>
                     </ProductCardButton>
