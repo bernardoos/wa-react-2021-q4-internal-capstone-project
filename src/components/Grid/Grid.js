@@ -48,10 +48,9 @@ const ProductCardButton = styled.button`
 `;
 
 function Grid({ productsInfo, isLoading, error }) {
-  const { data: categoriesInfo = [] } = useProductCategories();
+  const { data: categoriesInfo = [], isLoading: categoriesIsLoading } =
+    useProductCategories();
   const { products, setProducts, setTotalProducts } = useContext(CartContext);
-
-  console.log("info", productsInfo);
 
   const getCategoryName = (cateogryId) =>
     categoriesInfo.results?.find((category) => category.id === cateogryId).data
@@ -80,33 +79,47 @@ function Grid({ productsInfo, isLoading, error }) {
   return (
     <>
       <br />
-      <Row>
+      {categoriesIsLoading && <div>Loading product categories</div>}
+      <Row role="row" title="grid-row">
         {isLoading && <h2>Loading products</h2>}
         {error ? (
           <h2>Woops! Something went wrong...</h2>
         ) : (
-          productsInfo?.map((prdouct) => (
-            <Col key={prdouct.id}>
-              <ProductCard>
+          productsInfo?.map((product) => (
+            <Col key={product.id}>
+              <ProductCard
+                data-testid={`productCategory${getCategoryName(
+                  product.data?.category?.id
+                )}`}
+              >
                 <ProductImg
-                  src={prdouct.data.mainimage.url}
-                  alt={prdouct.data.mainimage.alt}
+                  src={product.data.mainimage.url}
+                  alt={product.data.mainimage.alt}
+                  title="grid-img"
                 />
                 <ProductDesc>
-                  <h3>{prdouct.data.name}</h3>
-                  <p>Category: {getCategoryName(prdouct.data.category.id)}</p>
-                  <p>Price: ${prdouct.data.price}</p>
+                  <h3>{product.data.name}</h3>
+                  <p>
+                    Category:
+                    {categoriesIsLoading
+                      ? "Loading product category"
+                      : getCategoryName(product.data.category.id)}
+                  </p>
+                  <p>Price: ${product.data.price}</p>
                 </ProductDesc>
                 <ProductCardFooter>
-                  <ProductCardButton onClick={() => addProductToCart(prdouct)}>
+                  <ProductCardButton
+                    title="addToCartCardButton"
+                    onClick={() => addProductToCart(product)}
+                  >
                     <MdOutlineAddShoppingCart />
                     <span style={{ marginLeft: 5 }}> Add to cart </span>
                   </ProductCardButton>
                   <Link
-                    to={`/product/${prdouct.id}`}
+                    to={`/product/${product.id}`}
                     style={{ textDecoration: "none" }}
                   >
-                    <ProductCardButton>
+                    <ProductCardButton title="productDetailButton">
                       <MdOutlineMore />
                       <span style={{ marginLeft: 5 }}> Product detail </span>
                     </ProductCardButton>

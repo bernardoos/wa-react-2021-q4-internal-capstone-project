@@ -61,7 +61,7 @@ function Carousel() {
                 },
               }) => (
                 <Link to={`products?category=${id}`} key={id}>
-                  <CarouselImg src={url} alt={alt} />
+                  <CarouselImg src={url} alt={alt} title="carousel-img" />
                 </Link>
               )
             )}

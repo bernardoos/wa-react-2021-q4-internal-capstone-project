@@ -21,11 +21,6 @@ function App() {
   const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
 
-  // useEffect(() => {
-  //   console.log("cart products", products);
-  //   console.log("total prods", totalProducts);
-  // }, [products]);
-
   return (
     <div className="App">
       <CartContext.Provider

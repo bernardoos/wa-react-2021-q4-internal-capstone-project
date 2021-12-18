@@ -106,7 +106,6 @@ function ShoppingCart() {
   };
 
   const removeFromCart = (productId) => {
-    console.log("remove");
     setProducts((prevProducts) =>
       prevProducts.filter((prod) => prod.id !== productId)
     );
@@ -126,7 +125,7 @@ function ShoppingCart() {
               <CartTableNoBorderTd></CartTableNoBorderTd>
             </tr>
             {products?.map((product) => (
-              <tr key={product.id}>
+              <tr key={product.id} title="productInfoRow">
                 <CartTableTd>
                   <CartProductImg src={product.data.mainimage.url} />
                 </CartTableTd>
@@ -134,6 +133,7 @@ function ShoppingCart() {
                 <CartTableTd>${product.data.price}</CartTableTd>
                 <CartTableTd>
                   <ProductQuantityInput
+                    title="productQtyInput"
                     type="number"
                     value={product.cartAmount}
                     min={0}
@@ -141,12 +141,13 @@ function ShoppingCart() {
                     onChange={(e) => updateQuantity(e, product.id)}
                   />
                 </CartTableTd>
-                <CartTableTd>
+                <CartTableTd title="productSubtotal">
                   ${product.data.price * product.cartAmount}
                 </CartTableTd>
                 <CartTableTd>
                   <RemoveFromCartButton
                     onClick={() => removeFromCart(product.id)}
+                    title="removeFromCartButton"
                   >
                     <MdOutlineRemoveShoppingCart />
                   </RemoveFromCartButton>
@@ -154,14 +155,14 @@ function ShoppingCart() {
               </tr>
             ))}
             <tr>
-              <CartTableNoBorderTd></CartTableNoBorderTd>
-              <CartTableNoBorderTd></CartTableNoBorderTd>
-              <CartTableNoBorderTd></CartTableNoBorderTd>
-              <CartTableNoBorderTd></CartTableNoBorderTd>
-              <CartTableNoBorderTd>
+              <CartTableNoBorderTd />
+              <CartTableNoBorderTd />
+              <CartTableNoBorderTd />
+              <CartTableNoBorderTd />
+              <CartTableNoBorderTd title="realTotal">
                 <h2>Total: ${total}</h2>
               </CartTableNoBorderTd>
-              <CartTableNoBorderTd></CartTableNoBorderTd>
+              <CartTableNoBorderTd />
             </tr>
           </tbody>
         </CartTable>

@@ -6,13 +6,13 @@ import styled from "styled-components";
 const ShoppingCartIconContainer = styled.div`
   .badge {
     position: absolute;
-    top: 1px;
-    right: 5px;
+    top: 2px;
+    right: 8px;
     padding: 4px 8px;
     border-radius: 50%;
     background: crimson;
     color: white;
-    font-size: 0.7em;
+    font-size: 0.9em;
   }
 `;
 
@@ -28,7 +28,12 @@ function ShoppingCartIcon() {
   return (
     <ShoppingCartIconContainer>
       <CartIcon />
-      {totalProducts > 0 && <span className="badge">{totalProducts}</span>}
+
+      {totalProducts > 0 && (
+        <span className="badge" data-testid="cartBadge">
+          {totalProducts}
+        </span>
+      )}
     </ShoppingCartIconContainer>
   );
 }

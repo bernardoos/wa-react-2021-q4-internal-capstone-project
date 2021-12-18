@@ -23,6 +23,8 @@ export function useFeaturedProducts() {
         const response = await fetch(
           `${API_BASE_URL}/documents/search?ref=${apiRef}&q=${encodeURIComponent(
             '[[at(document.type, "product")]]'
+          )}&q=${encodeURIComponent(
+            '[[at(document.tags, ["Featured"])]]'
           )}&lang=en-us&pageSize=16`,
           {
             signal: controller.signal,

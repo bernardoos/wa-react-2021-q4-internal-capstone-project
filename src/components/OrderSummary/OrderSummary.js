@@ -53,23 +53,27 @@ function OrderSummary() {
     <>
       <OrderTableContainer>
         <OrderTable>
-          <tr>
-            <OrderTableHeaderTd>Product</OrderTableHeaderTd>
-            <OrderTableHeaderTd>Quantity</OrderTableHeaderTd>
-            <OrderTableHeaderTd>Subtotal</OrderTableHeaderTd>
-          </tr>
-          {products.map((product) => (
+          <tbody>
             <tr>
-              <OrderTableTd>{product.data.name}</OrderTableTd>
-              <OrderTableTd>{product.cartAmount}</OrderTableTd>
-              <OrderTableTd>
-                ${product.cartAmount * product.data.price}
-              </OrderTableTd>
+              <OrderTableHeaderTd>Product</OrderTableHeaderTd>
+              <OrderTableHeaderTd>Quantity</OrderTableHeaderTd>
+              <OrderTableHeaderTd>Subtotal</OrderTableHeaderTd>
             </tr>
-          ))}
-          <OrderTableNoBorderTd></OrderTableNoBorderTd>
-          <OrderTableNoBorderTd></OrderTableNoBorderTd>
-          <OrderTableNoBorderTd>Total: ${total}</OrderTableNoBorderTd>
+            {products.map((product) => (
+              <tr key={product.id}>
+                <OrderTableTd>{product.data.name}</OrderTableTd>
+                <OrderTableTd>{product.cartAmount}</OrderTableTd>
+                <OrderTableTd>
+                  ${product.cartAmount * product.data.price}
+                </OrderTableTd>
+              </tr>
+            ))}
+            <tr>
+              <OrderTableNoBorderTd></OrderTableNoBorderTd>
+              <OrderTableNoBorderTd></OrderTableNoBorderTd>
+              <OrderTableNoBorderTd>Total: ${total}</OrderTableNoBorderTd>
+            </tr>
+          </tbody>
         </OrderTable>
       </OrderTableContainer>
     </>

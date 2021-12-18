@@ -38,6 +38,7 @@ const SearchButton = styled.button`
   align-items: center;
   margin-right: 15px;
   padding: 7px;
+  cursor: pointer;
 `;
 
 const SearchInput = styled.input`
@@ -45,9 +46,16 @@ const SearchInput = styled.input`
   font-size: medium;
 `;
 
+const ShoppingCartButton = styled.button`
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+`;
+
 function Header() {
   const handleInputChange = (event) => {
     const { value } = event.target;
+
     setSearch(value);
   };
 
@@ -55,20 +63,32 @@ function Header() {
   return (
     <HeaderContainer>
       <Link to="/">
-        <LogoSection>
-          <SiteLogo src={LogoSrc} alt="Logo" />
-          Globox
-        </LogoSection>
+        <button
+          title="headerLink"
+          style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+        >
+          <LogoSection>
+            <SiteLogo src={LogoSrc} alt="Logo" />
+            Globox
+          </LogoSection>
+        </button>
       </Link>
       <HeaderSection>
-        <SearchInput type="text" value={search} onChange={handleInputChange} />
+        <SearchInput
+          type="text"
+          value={search}
+          onChange={handleInputChange}
+          title="searchInput"
+        />
         <Link to={`/search/?q=${search}`}>
-          <SearchButton>
+          <SearchButton title="searchButton">
             <MdOutlineSearch />
           </SearchButton>
         </Link>
         <Link to="/cart" className="shoppingCartLink">
-          <ShoppingCartIcon />
+          <ShoppingCartButton title="cartButton">
+            <ShoppingCartIcon />
+          </ShoppingCartButton>
         </Link>
       </HeaderSection>
     </HeaderContainer>
