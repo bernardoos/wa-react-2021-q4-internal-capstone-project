@@ -63,7 +63,10 @@ function Header() {
   return (
     <HeaderContainer>
       <Link to="/">
-        <button title="headerLink">
+        <button
+          title="headerLink"
+          style={{ backgroundColor: "rgba(0,0,0,0)", border: "none" }}
+        >
           <LogoSection>
             <SiteLogo src={LogoSrc} alt="Logo" />
             Globox
